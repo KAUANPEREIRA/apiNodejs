@@ -62,3 +62,8 @@ export const deletar = async(req:Request,res:Response)=>{
      }
 
 }
+
+export const uploadFile = async(req:Request, res:Response)=>{
+    
+
+}
