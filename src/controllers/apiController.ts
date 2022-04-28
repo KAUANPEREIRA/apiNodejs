@@ -64,6 +64,11 @@ export const deletar = async(req:Request,res:Response)=>{
 }
 
 export const uploadFile = async(req:Request, res:Response)=>{
-    
+
+    console.log('FILE', req.file)
+    console.log('FILES', req.files)
+
+   
+    res.json({})
 
 }
