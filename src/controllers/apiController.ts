@@ -1,6 +1,7 @@
+import {unlink} from 'fs/promises'//para deletar imagens temporarias
 import {Request, Response} from 'express'
 import{Lista} from '../models/Lista'
-import sharp from 'sharp'
+import sharp from 'sharp'//manipular imagens
 export const all = async (req:Request,res:Response)=>{
   let listTodas = await Lista.findAll()
   res.json({listTodas})
@@ -66,12 +67,15 @@ export const deletar = async(req:Request,res:Response)=>{
 export const uploadFile = async(req:Request, res:Response)=>{
 
     if(req.file){
+        const filename = `${req.file.filename}.jpg`
         await sharp(req.file.path).resize(300,300 ,{fit:sharp.fit.cover}).toFormat('jpeg')
-        .toFile(`./public/media/${req.file.filename}.jpg`)
+        .toFile(`./public/media/${filename}`)
         //pegar a imagem, este resize esta definindo a largura de 500,e toFormat transformando em jpeg
         //toFile para indicar o caminho para salvar img
         //fit funciona como o background-image do css cover para pegar o meio
-        res.json({image:`${req.file.filename}.jpg`})
+
+        await unlink(req.file.path)//apagando arquivo da pasta temporaria
+        res.json({image:`${filename}`})
 
     }else{
         res.status(400)
