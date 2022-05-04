@@ -18,7 +18,7 @@ server.use((req: Request, res: Response) => {
     res.status(404);
     res.json({error: 'Endpoint não encontrado.'});
 });
-
+//utilizado no upload
 const errorHandler:ErrorRequestHandler =(err,req,res,next)=>{
     res.status(404)//bad request erro na requisição por parte do cliente ex dados incorretos
 
